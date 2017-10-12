@@ -20,15 +20,17 @@ then
 	echo "The --input option is mandatory! Specify input file"
 	exit 2
 
-echo $scripts > "local_addresses.txt"
-echo $build >> "local_addresses.txt"
-echo $bins >> "local_addresses.txt"
+#getting prefix for input filenames
+prefix="${input%.*}"
+
+
+echo $scripts > $prefix."local_addresses.txt"
+echo $build >> $prefix."local_addresses.txt"
+echo $bins >> $prefix."local_addresses.txt"
 
 dirs=$(dirname "${scripts}")
 echo $dirs >> "local_addresses.txt"
 
-#getting prefix for input filenames
-prefix="${input%.*}"
 
 if [ $slurm ]      #this will be true (on slurm) if the user enters 1 after the input file path.
 then
@@ -38,7 +40,7 @@ then
 fi
 
 #1.  quality trim
-perl $dirs/1_fastq_quality_trimmer.pl $1 $prefix.qualitytrimmed
+perl $dirs/1_fastq_quality_trimmer.pl $input $prefix.qualitytrimmed
 
 #2. remove internal dsAdr
 perl $dirs/2_remove_internal_adaptors.pl $prefix.qualitytrimmed $prefix.bowtie1Input
