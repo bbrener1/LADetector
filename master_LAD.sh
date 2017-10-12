@@ -8,9 +8,10 @@
 module unload git
 module load anaconda-python
 module load samtools
-source activate reddy_cancer
+# source activate reddy_cancer
 
-srun ./scripts/fusor.sh $1/*.gz > $2
+srun ./scripts/fusor.sh "$1/*.gz" > $2
 echo "$1"
+echo "$1/*.gz"
 echo "$2"
 # sbatch ./scripts/pre-normalization-scoring.sh --input $(readlink -f $2) --scripts ./scripts/ --build ./data --bins ./data/DpnIIbins_hg38.bed.gz --slurm 1
