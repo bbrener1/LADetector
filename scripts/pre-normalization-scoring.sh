@@ -31,7 +31,8 @@ echo "$scripts" > "$prefix.local_addresses.txt"
 echo "$build" >> "$prefix.local_addresses.txt"
 echo "$bins" >> "$prefix.local_addresses.txt"
 
-dirs=$(dirname "${scripts}")
+# dirs=$(dirname "${scripts}")
+dirs = "$scripts"
 echo "$dirs" >> "$prefix.local_addresses.txt"
 
 
@@ -40,6 +41,7 @@ then
 	module load bowtie
 	module load samtools
 	module load bedtools
+	module load perl
 fi
 
 #1.  quality trim
