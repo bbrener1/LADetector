@@ -32,7 +32,7 @@ echo "$build" >> "$prefix.local_addresses.txt"
 echo "$bins" >> "$prefix.local_addresses.txt"
 
 # dirs=$(dirname "${scripts}")
-dirs = "$scripts"
+dirs="$scripts"
 echo "$dirs" >> "$prefix.local_addresses.txt"
 
 
