@@ -17,15 +17,15 @@ while [[ "$#" > 1 ]]; do case $1 in
 	esac; shift; shift
 done
 
-if ["$input" -eq "none"]
-then
-	echo "The --input option is mandatory! Specify input file"
-	exit 137
+if [ "$input" = "none" ]
+	then
+		echo "The --input option is mandatory! Specify input file"
+		exit 137
 fi
 
 #getting prefix for input filenames
 prefix="${input%.*}"
-echo "Prefix set as:""$input"
+echo "Prefix set as:""$prefix"
 
 echo "$scripts" > "$prefix.local_addresses.txt"
 echo "$build" >> "$prefix.local_addresses.txt"
