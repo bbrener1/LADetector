@@ -1,9 +1,9 @@
 #!/bin/sh
 
-input = "none"
-scripts = ./
-build = ../data
-bins = ../data/DpnIIbins_hg38.bed.gz
+input="none"
+scripts=./
+build=../data
+bins=../data/DpnIIbins_hg38.bed.gz
 
 while [[ "$#" > 1 ]]; do case $1 in
     --scripts) scripts="$2";;

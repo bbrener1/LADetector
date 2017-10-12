@@ -1,18 +1,38 @@
 #!/bin/sh
 
+input = "none"
+scripts = ./LADetector_scripts/
+genome = ../../data/human.hg38.genome
+unalignable = ../../data/hg38.unalignable
+
+while [[ "$#" > 1 ]]; do case $1 in
+    --scripts) scripts="$2";;
+    --genome) build="$2";;
+		--unalignable) bins="$2";;
+		--input) input="$2";;
+    *) break;;
+  esac; shift; shift
+done
+
+if ["$input" -eq "none"]
+then
+	echo "The --input option is mandatory! Specify input file"
+	exit 2
+
+
 ######################################
 #TO DO before you run this script
-SCRIPTS=PATH_TO_DamID-LADetector_folder
+# SCRIPTS=PATH_TO_DamID-LADetector_folder
 #Enter the path of LADs_andDIPs.sh
-GENOME=PATH_TO_mm9.genome
-#Enter the path to mm9.genome file - format:   chr    chrSize   
-UNALIGNABLE=PATH_TO_mm9.unalignable.genome
+# GENOME=PATH_TO_mm9.genome
+#Enter the path to mm9.genome file - format:   chr    chrSize
+# UNALIGNABLE=PATH_TO_mm9.unalignable.genome
 #Enter the path to mm9.unalignable.genome file
 ######################################
 
-###################################### 
+######################################
 #Running the script
-#								       		 									      #			
+#								       		 									      #
 # .path_to_LADs_and_DIPs.sh path_to_normalized.bed min_DIP_size max_DIP_size	      #
 #										   										      #
 #                            OR if submitting to slurm					              #
@@ -23,10 +43,9 @@ UNALIGNABLE=PATH_TO_mm9.unalignable.genome
 #######################################################################################
 
 
-DIRS=$(dirname "${SCRIPTS}")
+DIRS=$(dirname "${scripts}")
 
-#getting prefix for input filenames 
-input=$1
+#getting prefix for input filenames
 prefix="${input%.*}"
 
 #module load bedtools
@@ -35,11 +54,11 @@ prefix="${input%.*}"
 #1. first, sort the normalized bed file by coordinates
 sortBed -i $1>$prefix.sorted.bed
 
-#2. remove unalignable bins from bed file and generate both a bedgraph removed of unalignable 
+#2. remove unalignable bins from bed file and generate both a bedgraph removed of unalignable
 #bins and a bed file with unalignable regions to be used later
-bedtools intersect -a $prefix.sorted.bed -b $UNALIGNABLE -v > $prefix.bedgraph
+bedtools intersect -a $prefix.sorted.bed -b $unalignable -v > $prefix.bedgraph
 
-#3. LADetector I: Uses a circular binary segmentation algorithm from the DNAcopy 
+#3. LADetector I: Uses a circular binary segmentation algorithm from the DNAcopy
 #package by Olshen(2007) to identify domains
 Rscript $DIRS/LADetector_I.R $prefix.bedgraph $prefix.seg
 
@@ -50,11 +69,9 @@ perl $DIRS/LADetector_II.pl $prefix.seg $prefix.consolidated
 perl $DIRS/LADetector_III.pl -j $2 -n $3 $prefix.consolidated $prefix.out $prefix.DIPs
 
 #6. just in case, sort the unalignable regions(.repeats) output file by coordinates
-sortBed -i $UNALIGNABLE >$unalignable.sorted
+sortBed -i $unalignable >$unalignable.sorted
 
 #8. complement unalignable regions (.repeats.sorted)
-perl $DIRS/complement_intervals.pl $GENOME $unalignable.sorted $unalignable.complement
+perl $DIRS/complement_intervals.pl $genome $unalignable.sorted $unalignable.complement
 
 bedtools intersect -a $prefix.out -b $unalignable.complement -u> $prefix.LADs
-
-
