@@ -10,7 +10,7 @@ module load anaconda-python
 module load samtools
 # source activate reddy_cancer
 
-srun ./scripts/fusor.sh $(ls $(readlink -f $1) | grep .gz) > $2
+srun ./scripts/fusor.sh $(find $(readlink -f $1) -iname *.gz) > $2
 echo "$1"
 echo "$(ls $1 | grep .gz)"
 echo "$2"
