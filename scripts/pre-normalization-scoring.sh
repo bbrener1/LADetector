@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo "Starting pre-normalization scoring:"
+
 input="none"
 scripts=./
 build=../data
@@ -22,14 +24,14 @@ then
 
 #getting prefix for input filenames
 prefix="${input%.*}"
+echo "Prefix set as:""$input"
 
-
-echo $scripts > $prefix."local_addresses.txt"
-echo $build >> $prefix."local_addresses.txt"
-echo $bins >> $prefix."local_addresses.txt"
+echo "$scripts" > "$prefix.local_addresses.txt"
+echo "$build" >> "$prefix.local_addresses.txt"
+echo "$bins" >> "$prefix.local_addresses.txt"
 
 dirs=$(dirname "${scripts}")
-echo $dirs >> "local_addresses.txt"
+echo "$dirs" >> "$prefix.local_addresses.txt"
 
 
 if [ $slurm ]      #this will be true (on slurm) if the user enters 1 after the input file path.
