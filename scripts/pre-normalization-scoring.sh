@@ -96,7 +96,7 @@ bedtools bamtobed -i $prefix.bowtie_mapped_all.bam > $prefix.bowtie_mapped_all.b
 
 echo "Finding Dpn Bins, step 10"
 #13. Perform bedtools intersect on Dpn bins.
-bedtools intersect -wb -a $prefix.bowtie_mapped_all.bed -b $BINS>$prefix.intersect.output
+bedtools intersect -wb -a $prefix.bowtie_mapped_all.bed -b $bins>$prefix.intersect.output
 
 echo "Counting bin reads, step 11"
 #14. Count number of reads that overlap each bin.
