@@ -10,9 +10,9 @@ bins=../data/DpnIIbins_hg38.bed.gz
 while [[ "$#" > 1 ]]; do case $1 in
     --scripts) scripts="$2";;
     --build) build="$2";;
-		--bins) bins="$2";;
-		--slurm) slurm="$2";;
-		--input) input="$2";;
+  	--bins) bins="$2";;
+  	--slurm) slurm="$2";;
+  	--input) input="$2";;
     *) break;;
   esac; shift; shift
 done
@@ -20,7 +20,7 @@ done
 if ["$input" -eq "none"]
 then
 	echo "The --input option is mandatory! Specify input file"
-	exit 2
+	exit 137
 
 #getting prefix for input filenames
 prefix="${input%.*}"
