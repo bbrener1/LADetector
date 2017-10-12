@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-#SBATCH --nodes=2
-#SBATCH --ntasks-per-node=24
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=6
 #SBATCH --partition=parallel
 #SBATCH -t 500
 
