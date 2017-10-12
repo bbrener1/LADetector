@@ -21,6 +21,7 @@ if ["$input" -eq "none"]
 then
 	echo "The --input option is mandatory! Specify input file"
 	exit 137
+fi
 
 #getting prefix for input filenames
 prefix="${input%.*}"
