@@ -43,7 +43,7 @@ then
 #######################################################################################
 
 
-DIRS=$(dirname "${scripts}")
+dirs=$(dirname "${scripts}")
 
 #getting prefix for input filenames
 prefix="${input%.*}"
@@ -60,18 +60,18 @@ bedtools intersect -a $prefix.sorted.bed -b $unalignable -v > $prefix.bedgraph
 
 #3. LADetector I: Uses a circular binary segmentation algorithm from the DNAcopy
 #package by Olshen(2007) to identify domains
-Rscript $DIRS/LADetector_I.R $prefix.bedgraph $prefix.seg
+Rscript $dirs/LADetector_I.R $prefix.bedgraph $prefix.seg
 
 #4. LADetector II: Converting domains from LAD detector I into +/- associated bins.
-perl $DIRS/LADetector_II.pl $prefix.seg $prefix.consolidated
+perl $dirs/LADetector_II.pl $prefix.seg $prefix.consolidated
 
 #5. LADetector III: Identify intervals that correspond to LADs, interLADs or Dips.
-perl $DIRS/LADetector_III.pl -j $2 -n $3 $prefix.consolidated $prefix.out $prefix.DIPs
+perl $dirs/LADetector_III.pl -j $2 -n $3 $prefix.consolidated $prefix.out $prefix.DIPs
 
 #6. just in case, sort the unalignable regions(.repeats) output file by coordinates
 sortBed -i $unalignable >$unalignable.sorted
 
 #8. complement unalignable regions (.repeats.sorted)
-perl $DIRS/complement_intervals.pl $genome $unalignable.sorted $unalignable.complement
+perl $dirs/complement_intervals.pl $genome $unalignable.sorted $unalignable.complement
 
 bedtools intersect -a $prefix.out -b $unalignable.complement -u> $prefix.LADs

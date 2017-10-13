@@ -15,4 +15,4 @@ module load samtools
 # echo "$2"
 ./scripts/fusor.sh $(find $(readlink -f $1) -iname *.gz) > $2
 
-./scripts/pre-normalization-scoring.sh --input $(readlink -f $2) --scripts ./scripts/ --build ./data --bins ./data/DpnIIbins_hg38.bed.gz --slurm 1
+./scripts/pre-normalization-scoring.sh --input $(readlink -f $2) --scripts ./scripts/ --build ./data --bins ./data/DpnIIbins_hg38.bed.gz
