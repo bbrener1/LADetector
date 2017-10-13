@@ -5,10 +5,7 @@
 #SBATCH --partition=parallel
 #SBATCH -t 500
 
-module unload git
-module load anaconda-python
-module load samtools
-# source activate reddy_cancer
+source activate reddy_cancer
 
 # echo "$1"
 # echo "$(find $(readlink -f $1) -iname *.gz)"
