@@ -5,7 +5,7 @@
 #SBATCH --partition=parallel
 #SBATCH -t 500
 
-source activate reddy_cancer
+source activate $3
 
 # echo "$1"
 # echo "$(find $(readlink -f $1) -iname *.gz)"
