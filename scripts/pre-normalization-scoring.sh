@@ -91,18 +91,18 @@ echo "Merging Bams, step 8"
 #11. Concatenate the bam files
 samtools merge -f $prefix.bowtie_mapped_all.bam $prefix.bowtie1_mapped.bam $prefix.bowtie2_mapped.bam $prefix.bowtie3_mapped.bam
 
-echo "Generating Beds, step 9"
-#12. convert the bam file to bed
-bedtools bamtobed -i $prefix.bowtie_mapped_all.bam > $prefix.bowtie_mapped_all.bed
-
-echo "Finding Dpn Bins, step 10"
-#13. Perform bedtools intersect on Dpn bins.
-bedtools intersect -wb -a $prefix.bowtie_mapped_all.bed -b $bins>$prefix.intersect.output
-
-echo "Counting bin reads, step 11"
-#14. Count number of reads that overlap each bin.
-perl $dirs/14_counting_readNum_per_Bin.pl $bins $prefix.intersect.output $prefix.preNormalization.score
-
-echo "Counting mapped reads, step 12"
-#15. Count number of mapped reads
-wc -l $prefix.bowtie_mapped_all.bed > $prefix.mappedReadCounts
+# echo "Generating Beds, step 9"
+# #12. convert the bam file to bed
+# bedtools bamtobed -i $prefix.bowtie_mapped_all.bam > $prefix.bowtie_mapped_all.bed
+#
+# echo "Finding Dpn Bins, step 10"
+# #13. Perform bedtools intersect on Dpn bins.
+# bedtools intersect -wb -a $prefix.bowtie_mapped_all.bed -b $bins>$prefix.intersect.output
+#
+# echo "Counting bin reads, step 11"
+# #14. Count number of reads that overlap each bin.
+# perl $dirs/14_counting_readNum_per_Bin.pl $bins $prefix.intersect.output $prefix.preNormalization.score
+#
+# echo "Counting mapped reads, step 12"
+# #15. Count number of mapped reads
+# wc -l $prefix.bowtie_mapped_all.bed > $prefix.mappedReadCounts
