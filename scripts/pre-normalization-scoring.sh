@@ -37,13 +37,13 @@ dirs="$scripts"
 echo "$dirs" >> "$prefix.local_addresses.txt"
 
 
-if [ $slurm ]      #this will be true (on slurm) if the user enters 1 after the input file path.
-then
-	module load bowtie
-	module load samtools
-	module load bedtools
-	module load perl
-fi
+# if [ $slurm ]      #this will be true (on slurm) if the user enters 1 after the input file path.
+# then
+# 	module load bowtie
+# 	module load samtools
+# 	module load bedtools
+# 	module load perl
+# fi
 
 
 #echo "Trimming, step 1 (quality)"
