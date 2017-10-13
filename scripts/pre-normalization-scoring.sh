@@ -8,6 +8,7 @@ build=../data
 bins=../data/DpnIIbins_hg38.bed.gz
 slurm=0
 
+
 while [[ "$#" > 1 ]]; do case $1 in
 		--scripts) scripts="$2";;
 		--build) build="$2";;
@@ -56,7 +57,7 @@ echo "$dirs" >> "$prefix.local_addresses.txt"
 
 echo "First alignment, step 3"
 #3. 1st bowtie run
-bowtie --maxbts 125 -n 2 --max --strata -e 70 -l 28 $build -q $prefix.bowtie1Input --un $prefix.bowtie1_unmapped  -S $prefix.bowtie1_mapped.sam
+bowtie --threads $slurm --maxbts 125 -n 2 --max --strata -e 70 -l 28 $build -q $prefix.bowtie1Input --un $prefix.bowtie1_unmapped  -S $prefix.bowtie1_mapped.sam
 
 echo "Trim 5' ends of unaligned, step 4"
 #4.  Trim 5' ends
@@ -64,7 +65,7 @@ perl $dirs/4_trim_5_prime_end.pl $prefix.bowtie1_unmapped $prefix.bowtie2Input
 
 echo "Second alignment, step 5"
 #5.  2nd bowtie run
-bowtie --maxbts 125 -n 2 --max --strata -e 70 -l 28 $build -q $prefix.bowtie2Input --un $prefix.bowtie2_unmapped  -S $prefix.bowtie2_mapped.sam
+bowtie --threads $slurm --maxbts 125 -n 2 --max --strata -e 70 -l 28 $build -q $prefix.bowtie2Input --un $prefix.bowtie2_unmapped  -S $prefix.bowtie2_mapped.sam
 
 echo "Intermission: messing around to find reads that haven't aligned yet"
 #6. find the identifiers of the unmapped reads
@@ -79,30 +80,30 @@ perl $dirs/8_trim_3_prime.pl $prefix.bowtie3Input_pre-trimmed $prefix.bowtie3Inp
 
 echo "Third alignment, step 6"
 #9.  3rd bowtie run
-bowtie --maxbts 125 -n 2 --max --strata -e 70 -l 28 $build -q $prefix.bowtie3Input --un $prefix.bowtie3_unmapped  -S $prefix.bowtie3_mapped.sam
+bowtie --threads $slurm --maxbts 125 -n 2 --max --strata -e 70 -l 28 $build -q $prefix.bowtie3Input --un $prefix.bowtie3_unmapped  -S $prefix.bowtie3_mapped.sam
 
 echo "Sam => Bam, step 7"
 #10. Convert all sam files (3 of them) to bams
-samtools view -bS $prefix.bowtie1_mapped.sam > $prefix.bowtie1_mapped.bam
-samtools view -bS $prefix.bowtie2_mapped.sam > $prefix.bowtie2_mapped.bam
-samtools view -bS $prefix.bowtie3_mapped.sam > $prefix.bowtie3_mapped.bam
+samtools view -@ $slurm -bS $prefix.bowtie1_mapped.sam > $prefix.bowtie1_mapped.bam
+samtools view -@ $slurm -bS $prefix.bowtie2_mapped.sam > $prefix.bowtie2_mapped.bam
+samtools view -@ $slurm -bS $prefix.bowtie3_mapped.sam > $prefix.bowtie3_mapped.bam
 
 echo "Merging Bams, step 8"
 #11. Concatenate the bam files
-samtools merge -f $prefix.bowtie_mapped_all.bam $prefix.bowtie1_mapped.bam $prefix.bowtie2_mapped.bam $prefix.bowtie3_mapped.bam
+samtools merge -@ $slurm -f $prefix.bowtie_mapped_all.bam $prefix.bowtie1_mapped.bam $prefix.bowtie2_mapped.bam $prefix.bowtie3_mapped.bam
 
-# echo "Generating Beds, step 9"
-# #12. convert the bam file to bed
-# bedtools bamtobed -i $prefix.bowtie_mapped_all.bam > $prefix.bowtie_mapped_all.bed
-#
-# echo "Finding Dpn Bins, step 10"
-# #13. Perform bedtools intersect on Dpn bins.
-# bedtools intersect -wb -a $prefix.bowtie_mapped_all.bed -b $bins>$prefix.intersect.output
-#
-# echo "Counting bin reads, step 11"
-# #14. Count number of reads that overlap each bin.
-# perl $dirs/14_counting_readNum_per_Bin.pl $bins $prefix.intersect.output $prefix.preNormalization.score
-#
-# echo "Counting mapped reads, step 12"
-# #15. Count number of mapped reads
-# wc -l $prefix.bowtie_mapped_all.bed > $prefix.mappedReadCounts
+echo "Generating Beds, step 9"
+#12. convert the bam file to bed
+bedtools bamtobed -i $prefix.bowtie_mapped_all.bam > $prefix.bowtie_mapped_all.bed
+
+echo "Finding Dpn Bins, step 10"
+#13. Perform bedtools intersect on Dpn bins.
+bedtools intersect -wb -a $prefix.bowtie_mapped_all.bed -b $bins>$prefix.intersect.output
+
+echo "Counting bin reads, step 11"
+#14. Count number of reads that overlap each bin.
+perl $dirs/14_counting_readNum_per_Bin.pl $bins $prefix.intersect.output $prefix.preNormalization.score
+
+echo "Counting mapped reads, step 12"
+#15. Count number of mapped reads
+wc -l $prefix.bowtie_mapped_all.bed > $prefix.mappedReadCounts
