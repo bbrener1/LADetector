@@ -7,9 +7,12 @@
 
 source activate $3
 
+local_absolute=$(readlink -f ./)
+
+echo "Local address set as: $local_absolute"
 # echo "$1"
 # echo "$(find $(readlink -f $1) -iname *.gz)"
 # echo "$2"
-./scripts/fusor.sh $(find $(readlink -f $1) -iname *.gz) > $2
+# ./scripts/fusor.sh $(find $(readlink -f $1) -iname *.gz) > $2
 
-./scripts/pre-normalization-scoring.sh --input $(readlink -f $2) --scripts ./scripts/ --build ./data --bins ./data/DpnIIbins_hg38.bed.gz
+./scripts/pre-normalization-scoring.sh --input $(readlink -f $2) --scripts $local_absolute/scripts/ --build $local_absolute/data --bins $local_absolute/data/DpnIIbins_hg38.bed.gz
