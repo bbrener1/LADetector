@@ -45,13 +45,13 @@ then
 fi
 
 
-echo "Trimming, step 1 (quality)"
+#echo "Trimming, step 1 (quality)"
 #1.  quality trim
-perl $dirs/1_fastq_quality_trimmer.pl $input $prefix.qualitytrimmed
+#perl $dirs/1_fastq_quality_trimmer.pl $input $prefix.qualitytrimmed
 
-echo "Removing internal dsAdr, step 2"
+#echo "Removing internal dsAdr, step 2"
 #2. remove internal dsAdr
-perl $dirs/2_remove_internal_adaptors.pl $prefix.qualitytrimmed $prefix.bowtie1Input
+#perl $dirs/2_remove_internal_adaptors.pl $prefix.qualitytrimmed $prefix.bowtie1Input
 
 echo "First alignment, step 3"
 #3. 1st bowtie run
