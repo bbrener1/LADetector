@@ -15,4 +15,4 @@ echo "$(find $(readlink -f $1) -iname *.gz)"
 echo "$2"
 ./scripts/fusor.sh $(find $(readlink -f $1) -iname *.gz) > $2;
 
-./scripts/pre-normalization-scoring.sh --input $(readlink -f $2) --scripts $local_absolute/scripts/ --build $local_absolute/data/GCA_000001405.15_GRCh38_no_alt_analysis_set --bins $local_absolute/data/DpnIIbins_hg38.bed --slurm 40
+# ./scripts/pre-normalization-scoring.sh --input $(readlink -f $2) --scripts $local_absolute/scripts/ --build $local_absolute/data/GCA_000001405.15_GRCh38_no_alt_analysis_set --bins $local_absolute/data/DpnIIbins_hg38.bed --slurm 40
