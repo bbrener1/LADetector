@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-#SBATCH --nodes=2
-#SBATCH --ntasks-per-node=24
+#SBATCH --nodes=
+#SBATCH --ntasks-per-node=2
 #SBATCH --mem-per-cpu=5G
 #SBATCH --partition=parallel
 #SBATCH -t 500
@@ -23,7 +23,7 @@ do
 
   ./scripts/pre-normalization-scoring.sh --input $(readlink -f $2$i.dam.fused.fastq) --scripts $local_absolute/scripts/ --build $local_absolute/data/GCA_000001405.15_GRCh38_no_alt_analysis_set --bins $local_absolute/data/DpnIIbins_hg38.bed --slurm 40
 
-  ./scripts/fusor.sh $(find $(readlink -f $i/LmnB/) -iname *.gz) > $2$i.lmnb.fused.fastq;
+  ./scripts/fusor.sh $(find $(readlink -f $p/LmnB/) -iname *.gz) > $2$i.lmnb.fused.fastq;
 
   ./scripts/pre-normalization-scoring.sh --input $(readlink -f $2$i.lmnB.fused.fastq) --scripts $local_absolute/scripts/ --build $local_absolute/data/GCA_000001405.15_GRCh38_no_alt_analysis_set --bins $local_absolute/data/DpnIIbins_hg38.bed --slurm 40
 
