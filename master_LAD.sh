@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#SBATCH --nodes=
+#SBATCH --nodes=1
 #SBATCH --ntasks-per-node=2
 #SBATCH --mem-per-cpu=5G
 #SBATCH --partition=parallel
