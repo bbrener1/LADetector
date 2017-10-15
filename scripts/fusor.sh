@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "Starting fusion"
-for i in (seq 1 $#);
+for i in $(seq 1 $#);
 do
   echo $i
 done
