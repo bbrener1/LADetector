@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
 echo "Starting fusion"
-echo $0
+for i in `1..$#`;
+do
+  echo $i
+done
 echo "" > $1
 target=$1
 shift
