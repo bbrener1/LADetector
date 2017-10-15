@@ -27,7 +27,8 @@ fi
 
 #getting prefix for input filenames
 prefix="${input%.*}"
-echo "Prefix set as:""$prefix"
+echo "Prefix set as: $prefix"
+echo "Input set as: $input"
 
 echo "$scripts" > "$prefix.local_addresses.txt"
 echo "$build" >> "$prefix.local_addresses.txt"
