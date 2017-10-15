@@ -57,7 +57,7 @@ perl $dirs/2_remove_internal_adaptors.pl $prefix.qualitytrimmed $prefix.bowtie1I
 
 echo "First alignment, step 3"
 #3. 1st bowtie run
-bowtie --threads $slurm --maxbts 125 -n 2 --max --strata -e 70 -l 28 $build -q $prefix.bowtie1Input --un $prefix.bowtie1_unmapped  -S $prefix.bowtie1_mapped.sam
+bowtie --threads $slurm --maxbts 125 -n 2 --max --strata --best $build -q $prefix.bowtie1Input --un $prefix.bowtie1_unmapped  -S $prefix.bowtie1_mapped.sam
 
 echo "Trim 5' ends of unaligned, step 4"
 #4.  Trim 5' ends
@@ -84,7 +84,7 @@ bowtie --threads $slurm --maxbts 125 -n 2 --max --strata -e 70 -l 28 $build -q $
 
 echo "Sam => Bam, step 7"
 #10. Convert all sam files (3 of them) to bams
-samtools view -@ $slurm -bS $prefix.bowtie1_mapped.sam > $prefix.bowtie1_mapped.bam
+samtools view -@ $slurm -bS -o $prefix.bowtie1_mapped.bam $prefix.bowtie1_mapped.sam
 samtools view -@ $slurm -bS $prefix.bowtie2_mapped.sam > $prefix.bowtie2_mapped.bam
 samtools view -@ $slurm -bS $prefix.bowtie3_mapped.sam > $prefix.bowtie3_mapped.bam
 
