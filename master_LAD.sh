@@ -17,11 +17,12 @@ echo "$2"
 
 for p in $(cat $1);
 do
+  echo "We are in the loop"
   echo $(cat $1)
   echo $p
   i=$(basename $p)
   echo "$i"
-  ./scripts/fusor.sh $2$i.dam.fused.fastq $(find $(readlink -f $i/Dam/) -iname *.gz);
+  ./scripts/fusor.sh $2$i.dam.fused.fastq $(find $(readlink -f $p/Dam/) -iname *.gz);
 
   echo "I finished fusing, now I'm in master_LAD body!"
 
