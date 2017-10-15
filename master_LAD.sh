@@ -17,6 +17,8 @@ echo "$2"
 
 for p in $(cat $1);
 do
+  echo $(cat $1)
+  echo $p
   i=$(basename $p)
   echo "$i"
   ./scripts/fusor.sh $2$i.dam.fused.fastq $(find $(readlink -f $i/Dam/) -iname *.gz);
