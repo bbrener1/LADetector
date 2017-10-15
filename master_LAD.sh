@@ -2,6 +2,7 @@
 
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=24
+#SBATCH --mem-per-cpu=5G
 #SBATCH --partition=parallel
 #SBATCH -t 500
 
