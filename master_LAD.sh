@@ -12,12 +12,13 @@ local_absolute=$(readlink -f ./)
 
 echo "Local address set as: $local_absolute"
 echo "$1"
-echo "$(find $(readlink -f $1) -iname *.gz)"
+# echo "$(find $(readlink -f $1) -iname *.gz)"
 echo "$2"
 
 for p in $(cat $1);
 do
   i=$(basename $p)
+  echo "$i"
   ./scripts/fusor.sh $(find $(readlink -f $i/Dam/) -iname *.gz) > $2$i.dam.fused.fastq;
 
   echo "I finished fusing, now I'm in master_LAD body!"
