@@ -48,11 +48,11 @@ echo "$dirs" >> "$prefix.local_addresses.txt"
 
 
 echo "Trimming, step 1 (quality)"
-1.  quality trim
+# 1.  quality trim
 perl $dirs/1_fastq_quality_trimmer.pl $input $prefix.qualitytrimmed
 
 echo "Removing internal dsAdr, step 2"
-2. remove internal dsAdr
+# 2. remove internal dsAdr
 perl $dirs/2_remove_internal_adaptors.pl $prefix.qualitytrimmed $prefix.bowtie1Input
 
 echo "First alignment, step 3"
