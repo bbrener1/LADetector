@@ -78,3 +78,5 @@ sortBed -i $unalignable >$unalignable.sorted
 perl $dirs/complement_intervals.pl $genome $unalignable.sorted $unalignable.complement
 
 bedtools intersect -a $prefix.out -b $unalignable.complement -u> $prefix.LADs
+
+echo "Done"
