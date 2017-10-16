@@ -60,22 +60,34 @@ prefix="${input%.*}"
 #module load R
 
 #1. first, sort the normalized bed file by coordinates
+echo "Generating bed, step 1"
 sortBed -i $1>$prefix.sorted.bed
+ls -lh $prefix.sorted.bed
 
 #2. remove unalignable bins from bed file and generate both a bedgraph removed of unalignable
 #bins and a bed file with unalignable regions to be used later
+echo "Generating bedgraph, step 2"
 bedtools intersect -a $prefix.sorted.bed -b $unalignable -v > $prefix.bedgraph
+ls -lh $prefix.bedgraph
 
 #3. LADetector I: Uses a circular binary segmentation algorithm from the DNAcopy
 #package by Olshen(2007) to identify domains
-Rscript $scripts/LADetector_I.R $prefix.bedgraph $prefix.seg
 
+echo "Circular binary segmentation, step 3"
+Rscript $scripts/LADetector_I.R $prefix.bedgraph $prefix.seg
+ls -lh $prefix.seg
+
+echo "Associated bins, step 4"
 #4. LADetector II: Converting domains from LAD detector I into +/- associated bins.
 perl $scripts/LADetector_II.pl $prefix.seg $prefix.consolidated
+ls -lh $prefix.consolidated
 
 #5. LADetector III: Identify intervals that correspond to LADs, interLADs or Dips.
+echo "ID intervals, step 5"
 perl $scripts/LADetector_III.pl -j $max_DIP -n $min_DIP $prefix.consolidated $prefix.out $prefix.DIPs
+ls -lh $prefix
 
+echo "Finishing up"
 #6. just in case, sort the unalignable regions(.repeats) output file by coordinates
 sortBed -i $unalignable >$unalignable.sorted
 
