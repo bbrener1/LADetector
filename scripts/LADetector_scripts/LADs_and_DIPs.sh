@@ -17,7 +17,7 @@ while [[ "$#" > 1 ]]; do case $1 in
   esac; shift; shift
 done
 
-if ["$input" -eq "none"]
+if ["$input" = "none"]
 then
 	echo "The --input option is mandatory! Specify input file"
 	exit 2
