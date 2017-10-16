@@ -47,6 +47,7 @@ echo "$dirs" >> "$prefix.local_addresses.txt"
 # 	module load perl
 # fi
 
+head $input
 
 echo "Trimming, step 1 (quality)"
 # 1.  quality trim
