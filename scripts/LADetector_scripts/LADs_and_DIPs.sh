@@ -1,9 +1,9 @@
 #!/bin/sh
 
-input="none"
-scripts=./LADetector_scripts/
-genome=../../data/human.hg38.genome
-unalignable=../../data/hg38.unalignable
+# input="none"
+# scripts=./LADetector_scripts/
+# genome=../../data/human.hg38.genome
+# unalignable=../../data/hg38.unalignable
 
 max_DIP=7000
 min_DIP=2000
