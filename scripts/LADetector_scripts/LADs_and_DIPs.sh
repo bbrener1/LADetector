@@ -61,7 +61,7 @@ prefix="${input%.*}"
 
 #1. first, sort the normalized bed file by coordinates
 echo "Generating bed, step 1"
-sortBed -i $1>$prefix.sorted.bed
+sortBed -i $input >$prefix.sorted.bed
 ls -lh $prefix.sorted.bed
 
 #2. remove unalignable bins from bed file and generate both a bedgraph removed of unalignable
