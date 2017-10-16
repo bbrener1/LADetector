@@ -24,8 +24,8 @@ then
 fi
 
 echo "$scripts"
-echo "$genome"
-echo "$unalignable"
+echo $(readlink -f $genome)
+echo $(readlink -f$unalignable)
 echo "$input"
 
 ######################################
