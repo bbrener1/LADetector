@@ -21,7 +21,7 @@ if ["$input" -eq "none"]
 then
 	echo "The --input option is mandatory! Specify input file"
 	exit 2
-
+fi
 
 ######################################
 #TO DO before you run this script
