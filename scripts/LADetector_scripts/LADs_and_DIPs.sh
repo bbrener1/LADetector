@@ -23,6 +23,11 @@ then
 	exit 2
 fi
 
+echo "$scripts"
+echo "$genome"
+echo "$unalignable"
+echo "$input"
+
 ######################################
 #TO DO before you run this script
 # SCRIPTS=PATH_TO_DamID-LADetector_folder
