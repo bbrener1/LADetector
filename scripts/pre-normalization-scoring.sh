@@ -85,9 +85,9 @@ bowtie --threads $slurm --maxbts 125 -n 2 --max --strata -e 70 -l 28 $build -q $
 
 echo "Sam => Bam, step 7"
 #10. Convert all sam files (3 of them) to bams
-samtools view -bS -o $prefix.bowtie1_mapped.bam $prefix.bowtie1_mapped.sam
-samtools view -bS $prefix.bowtie2_mapped.sam > $prefix.bowtie2_mapped.bam
-samtools view -bS $prefix.bowtie3_mapped.sam > $prefix.bowtie3_mapped.bam
+samtools view -@ $slurm -bS $prefix.bowtie1_mapped.bam $prefix.bowtie1_mapped.sam
+samtools view -@ $slurm -bS $prefix.bowtie2_mapped.sam > $prefix.bowtie2_mapped.bam
+samtools view -@ $slurm -bS $prefix.bowtie3_mapped.sam > $prefix.bowtie3_mapped.bam
 
 echo "Merging Bams, step 8"
 #11. Concatenate the bam files
