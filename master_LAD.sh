@@ -36,6 +36,6 @@ do
 
   ./scripts/pre-normalization-scoring.sh --input $(readlink -f $2$i.lmnb.fused.fastq) --scripts $local_absolute/scripts/ --build $local_absolute/data/GCA_000001405.15_GRCh38_no_alt_analysis_set --bins $local_absolute/data/DpnIIbins_hg38.bed --slurm 22
 
-  perl $local_absolute/scripts/Normalization.pl $2$i.dam.fused.preNormalization.score $2$i.lmnB.fused.preNormalization.score $2$i.dam.fused.mappedReadCounts $2$i.lmnb.fused.mappedReadCounts $2$i.normalized
+  perl $local_absolute/scripts/Normalization.pl $2$i.dam.fused.preNormalization.score $2$i.lmnb.fused.preNormalization.score $2$i.dam.fused.mappedReadCounts $2$i.lmnb.fused.mappedReadCounts $2$i.normalized
 
 done

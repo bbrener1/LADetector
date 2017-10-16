@@ -1,9 +1,12 @@
 #!/bin/sh
 
-input = "none"
-scripts = ./LADetector_scripts/
-genome = ../../data/human.hg38.genome
-unalignable = ../../data/hg38.unalignable
+input="none"
+scripts=./LADetector_scripts/
+genome=../../data/human.hg38.genome
+unalignable=../../data/hg38.unalignable
+
+max_DIP=7000
+min_DIP=2000
 
 while [[ "$#" > 1 ]]; do case $1 in
     --scripts) scripts="$2";;
@@ -66,7 +69,7 @@ Rscript $dirs/LADetector_I.R $prefix.bedgraph $prefix.seg
 perl $dirs/LADetector_II.pl $prefix.seg $prefix.consolidated
 
 #5. LADetector III: Identify intervals that correspond to LADs, interLADs or Dips.
-perl $dirs/LADetector_III.pl -j $2 -n $3 $prefix.consolidated $prefix.out $prefix.DIPs
+perl $dirs/LADetector_III.pl -j $max_DIP -n $min_DIP $prefix.consolidated $prefix.out $prefix.DIPs
 
 #6. just in case, sort the unalignable regions(.repeats) output file by coordinates
 sortBed -i $unalignable >$unalignable.sorted
