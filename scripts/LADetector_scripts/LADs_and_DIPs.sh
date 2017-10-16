@@ -10,8 +10,8 @@ min_DIP=2000
 
 while [[ "$#" > 1 ]]; do case $1 in
     --scripts) scripts="$2";;
-    --genome) build="$2";;
-		--unalignable) bins="$2";;
+    --genome) genome="$2";;
+		--unalignable) unalignable="$2";;
 		--input) input="$2";;
     *) break;;
   esac; shift; shift
@@ -25,7 +25,7 @@ fi
 
 echo "$scripts"
 echo $(readlink -f $genome)
-echo $(readlink -f$unalignable)
+echo $(readlink -f $unalignable)
 echo "$input"
 
 ######################################
