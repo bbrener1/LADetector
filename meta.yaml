@@ -1,0 +1,26 @@
+package:
+  name: ladetector
+  version: 0.9
+
+source:
+  git_url: https://github.com/bbrener1/LADetector
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - bowtie
+    - perl=5.22.0
+    - samtools
+
+  run:
+    - python
+
+test:
+  imports:
+    -
+
+about:
+  home:
+  license:
+  license_file:

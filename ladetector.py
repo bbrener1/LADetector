@@ -94,11 +94,12 @@ def main():
 
     # raw_input(prompt="About to fuse, proceed?")
 
-    fused_lads = fuse(lads("",True),output,working("",True)+sample_name("",True) + ".lmnb")
-    fused_dams = fuse(dams("",True),output,working("",True)+sample_name("",True) + ".dam")
+    fused_lads = fuse(lads("",True),output,working("",True)+sample_name("",True) + ".lmnb.fused.fastq")
+    fused_dams = fuse(dams("",True),output,working("",True)+sample_name("",True) + ".dam.fused.fastq")
 
     pre_normalization_command = []
     pre_normalization_command.append("./scripts/pre-normalization-scoring.sh")
+    pre_normalization_command.extend(["--input",fused_dams])
     pre_normalization_command.extend(["--scripts","./scripts/"])
     pre_normalization_command.extend(["--build","./data/GCA_000001405.15_GRCh38_no_alt_analysis_set"])
     pre_normalization_command.extend(["--bins","./data/DpnIIbins_hg38.bed"])
@@ -109,17 +110,26 @@ def main():
 
 
     output.write("Attempting to pre-score DAM\n")
-    output.write("Command is: " + fused_dams + " ".join(pre_normalization_command))
+    output.write("Command is: " + " ".join(pre_normalization_command))
 
-    if subprocess.call([fused_dams,]+pre_normalization_command,stdout=output) == 0:
+    if subprocess.call(pre_normalization_command,stdout=output) == 0:
         output.write("DAM prepped successfully.\n")
     else:
         raise ValueError("DAM pre-scoring returned an error code")
 
     # raw_input(prompt="About to pre-score lmnb, proceed?")
 
+    pre_normalization_command = []
+    pre_normalization_command.append("./scripts/pre-normalization-scoring.sh")
+    pre_normalization_command.extend(["--input",fused_lads])
+    pre_normalization_command.extend(["--scripts","./scripts/"])
+    pre_normalization_command.extend(["--build","./data/GCA_000001405.15_GRCh38_no_alt_analysis_set"])
+    pre_normalization_command.extend(["--bins","./data/DpnIIbins_hg38.bed"])
+    pre_normalization_command.extend(["--slurm",str(processors("",True))])
+
+
     output.write("Attempting to pre-score LmnB\n")
-    if subprocess.call([fused_lads,] + pre_normalization_command ,stdout=output) == 0:
+    if subprocess.call(pre_normalization_command ,stdout=output) == 0:
         output.write("LmnB prepped successfully\n")
     else:
         raise ValueError("LmnB pre-scoring returned an error code")
