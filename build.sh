@@ -7,6 +7,6 @@ echo "python \$LADETECTOR_PREFIX/ladetector.py -prefix \$LADETECTOR_PREFIX \"\$@
 mkdir -p $PREFIX/bin
 mkdir -p $PREFIX/ladetector
 
-cp ladetector $PREFIX/bin
-cp ./* $PREFIX/ladetector/
+cp -r ladetector $PREFIX/bin
+cp -r ./* $PREFIX/ladetector/
 chmod +x $PREFIX/bin/ladetector
