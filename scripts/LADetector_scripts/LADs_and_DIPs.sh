@@ -94,6 +94,6 @@ sortBed -i $unalignable >$unalignable.sorted
 #8. complement unalignable regions (.repeats.sorted)
 perl $scripts/complement_intervals.pl $genome $unalignable.sorted $unalignable.complement
 
-bedtools intersect -a $prefix.out -b $unalignable.complement -u> $prefix.LADs
+bedtools intersect -a $prefix.out -b $unalignable.complement -u > $prefix.LADs
 
 echo "Done"

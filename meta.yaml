@@ -9,16 +9,17 @@ requirements:
   build:
     - python
     - setuptools
-    - bowtie
+    - bowtie=1.2.2
     - perl=5.22.0
     - samtools
+    - r
 
   run:
     - python
 
 test:
-  imports:
-    -
+  commands:
+    - ladetector -diag -d -l -sn test
 
 about:
   home:
