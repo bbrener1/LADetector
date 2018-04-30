@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+LADETECTOR_PREFIX=
+python ladetector.py -prefix  
