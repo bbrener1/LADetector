@@ -26,3 +26,4 @@ After installation, usage is via the command
 -o is an optional flag if you would like to output the files somewhere besides the ladetector working directory. 
 
 Either in the working directory or in the output directory, you will have a large collection of files. The files you are interested in will sample_name.LADs, sample_name.DIPs, and potentially sample_name.normalized. sample_name.LADs and sample_name.DIPs are in BED4 format, and contain respectively regions that are called as LADs and as DIPs. sample_name.normalized is in bedgraph format and contains log2 ratios of lamnb to dam signal. 
+
