@@ -4,7 +4,7 @@ For a detailed description of the DamID-sequencing protocol and the benchmarking
 
 *If you use our program to analyze your data in a published work, please cite the above paper in your publication.*
 
-For questions about usage, please email Xianrong Wong: xwong2@jhu.edu, Teresa Luperchio: trl@jhmi.edu, or Karen Reddy: kreddy4@jhmi.edu.
+For questions about usage, please email Xianrong Wong: xwong2@jhu.edu, Teresa Luperchio: trl@jhmi.edu, or Karen Reddy: kreddy4@jhmi.edu, bug reports and feature requests can be addressed to Boris Brenerman: bbrener1@jhu.edu
 
 ## Introduction
 
