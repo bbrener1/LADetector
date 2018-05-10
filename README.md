@@ -15,7 +15,9 @@ This program can be divided into three parts; **mapping**, **normalization** and
 ## Command line tool
 ### 1. Installation
 
-TBD, currently installation is possible by cloning the git directory and running conda build, but shortly we will provide instructions for installation via conda.
+Feel free to install either by cloning this repository, or via conda using the following command:
+
+conda install -c boris.brenerman ladetector
 
 ### 2. Usage
 
